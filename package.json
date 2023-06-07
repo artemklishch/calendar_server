@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev-ts": "NODE_ENV=development tsc -w",
-    "start:dev-server": "NODE_ENV=development nodemon dist/app.js",
-    "start": "NODE_ENV=production node dist/app.js"
+    "start:dev-ts": "tsc -w",
+    "start:dev-server": "nodemon dist/app.js",
+    "start": "node dist/app.js"
   },
   "keywords": [],
   "author": "",

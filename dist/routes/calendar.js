@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const calendar_1 = require("../controllers/calendar");
+const router = (0, express_1.Router)();
+router.get("/", calendar_1.getCurrentMonthData);
+router.post("/createEvent", calendar_1.createEvent);
+router.delete("/deleteEvent/:date/:eventId", calendar_1.deleteEvent);
+router.put("/updateEvent", calendar_1.updateEvent);
+router.put("/dragDropInOneDay", calendar_1.updateDragDropInOneDay);
+router.put("/dragDropDiffDays", calendar_1.updateDragDropDiffDays);
+exports.default = router;

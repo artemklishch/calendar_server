@@ -1,14 +1,13 @@
 import { Database } from "sqlite3";
+import path from "path";
+import sqlite3 from "sqlite3";
 
-const path = require("path");
-const sqlite3 = require("sqlite3");
-
-const dbPath = path.resolve(__dirname, "..", "storage", "charts.db");
+const dbPath = path.resolve(__dirname, "..", "storage", "calendar.db");
 
 let _db: Database;
-const sqLiteConnect = (callback: () => void) => {
+export const sqLiteConnect = (callback: () => void) => {
   const dbConnect = sqlite3.verbose();
-  _db = new dbConnect.Database(dbPath, sqlite3.OPEN_READWRITE, (err: Error) => {
+  _db = new dbConnect.Database(dbPath, sqlite3.OPEN_READWRITE, (err) => {
     if (err) {
       console.error("Error occured", err.message);
     } else {
@@ -18,9 +17,9 @@ const sqLiteConnect = (callback: () => void) => {
   });
 };
 
-const getDb = () => {
+export const getDb = () => {
   if (_db) return _db;
   throw "No database found";
 };
 
-module.exports = { sqLiteConnect, getDb };
+// module.exports = { sqLiteConnect, getDb };

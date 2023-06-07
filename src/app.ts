@@ -1,21 +1,16 @@
 import { NextFunction, Request, Response } from "express";
-import express from 'express'
-import helmet from 'helmet'
+import express from "express";
+import helmet from "helmet";
+import calendarRoutes from "./routes/calendar";
 
 const app = express();
-// const chartRoutes = require("./routes/charts");
-// const { sqLiteConnect } = require("./util/database");
+const { sqLiteConnect } = require("./util/database");
 const PORT = 8080;
-
-// const hostName =
-//   process.env.NODE_ENV === "development"
-//     ? `http://localhost:${port}`
-//     : `http://localhost:${port}`; // TODO: it has to be changes when deployed
 
 export type QueryMiddleware = (
   req: Request,
   res: Response,
-  next?: NextFunction
+  next: NextFunction
 ) => void;
 app.use(helmet());
 app.use(express.json());
@@ -26,17 +21,12 @@ app.use(<QueryMiddleware>function (req, res, next) {
     "OPTIONS, GET, POST, PUT, DELETE"
   );
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-  if (next) {
-    next();
-  }
+  next();
 });
-// app.use(chartRoutes);
+app.use(calendarRoutes);
 
-// sqLiteConnect(() => {
-//   app.listen(PORT, () => {
-//     console.log(`The app is listening on port ${PORT}`);
-//   });
-// });
-app.listen(PORT, () => {
-  console.log(`The app is listening on port ${PORT}`);
+sqLiteConnect(() => {
+  app.listen(PORT, () => {
+    console.log(`The app is listening on port ${PORT}`);
+  });
 });
